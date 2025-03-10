@@ -15,4 +15,15 @@ public class P135808 {
             return answer;
         }
     }
+
+    public static void main(String[] args) {
+        // k	m	score	result
+        // 3	4	[1, 2, 3, 1, 2, 3, 1]	8
+        // 4	3	[4, 1, 2, 2, 4, 4, 4, 4, 1, 2, 4, 2]	33
+
+        Solution solution = new P135808().new Solution();
+        int[] score1 = {1, 2, 3, 1, 2, 3, 1};
+        int result = solution.solution(3, 4, score1);
+
+    }
 }

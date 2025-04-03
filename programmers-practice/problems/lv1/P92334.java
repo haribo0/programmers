@@ -1,6 +1,6 @@
 
 import java.util.*;
-s
+
 public class P92334 {
 
     public int[] solution(String[] id_list, String[] report, int k) {

@@ -1,45 +1,40 @@
 import java.util.Arrays;
 
 public class P340213 {
-    private static int converTimeToSec(String time){
+    
+    private static int convertTimeToSec(String time){
         String[] arr = time.split(":");
-        int sec = 0;
-        sec += Integer.valueOf(arr[0])*60;
-        sec += Integer.valueOf(arr[1]);
-        return sec;
+        return Integer.parseInt(arr[0]) * 60 + Integer.parseInt(arr[1]);
     }
-        
-    private static String converSecToTime(int sec){
+    
+    private static String convertSecToTime(int sec){
         int minutes = sec / 60;
         int seconds = sec % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
+    
+    private static int skipOpeningIfInRange(int pos, int opStart, int opEnd) {
+        return (pos >= opStart && pos < opEnd) ? opEnd : pos;
+    }
 
     public String solution(String video_len, String pos, String op_start, String op_end, String[] commands) {
+        int len = convertTimeToSec(video_len);
+        int position = convertTimeToSec(pos);
+        int op_s = convertTimeToSec(op_start);
+        int op_e = convertTimeToSec(op_end);
         
-        int len = converTimeToSec(video_len);
-        int position = converTimeToSec(pos);
-        int op_s = converTimeToSec(op_start);
-        int op_e = converTimeToSec(op_end);
+        position = skipOpeningIfInRange(position, op_s, op_e);
         
-        if(position>=op_s && position<op_e){
-            position=op_e;
-        }
-        
-        for(String command : commands){
-            
-            if(command.equals("prev")){
+        for (String command : commands) {
+            if (command.equals("prev")) {
                 position = Math.max(0, position - 10);
-            }else if(command.equals("next")){
+            } else if (command.equals("next")) {
                 position = Math.min(len, position + 10);
             }
-            
-            if(position>=op_s && position<op_e){
-                position=op_e;
-            }
+            position = skipOpeningIfInRange(position, op_s, op_e);
         }
         
-        return converSecToTime(position);
+        return convertSecToTime(position);
     }
 
     public static void main(String[] args) {
